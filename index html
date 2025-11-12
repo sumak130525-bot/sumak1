@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUMAK - Restaurante Boliviano</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --red: #dc2626;
+            --yellow: #f59e0b;
+            --green: #10b981;
+            --dark: #1f2937;
+            --darker: #0f172a;
+            --light: #f9fafb;
+        }
+
+        body {
+            background: #696969;
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(31, 41, 55, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--red);
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .whatsapp { background: #25D366; }
+        .facebook { background: #1877F2; }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 50px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            margin: 0 auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            text-align: center;
+            background: rgba(31, 41, 55, 0.9);
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            color: var(--red);
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
+        }
+
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--light);
+        }
+
+        /* Rating Section */
+        .rating {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .rating-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stars {
+            color: #cbd5e1;
+            font-size: 2rem;
+            margin: 20px 0;
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+
+        .stars .star {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .stars .star:hover,
+        .stars .star.active {
+            color: var(--yellow);
+            transform: scale(1.2);
+        }
+
+        .stars .star:hover ~ .star {
+            color: #cbd5e1;
+            transform: scale(1);
+        }
+
+        .rating-btn {
+            display: inline-block;
+            background: var(--green);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.5);
+        }
+
+        .rating-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.7);
+        }
+
+        /* Menu Section */
+        .menu {
+            padding: 80px 0;
+            background: rgba(31, 41, 55, 0.9);
+        }
+
+        .menu h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--red);
+            margin-bottom: 50px;
+            text-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-item {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--yellow);
+        }
+
+        .menu-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover .menu-img {
+            transform: scale(1.05);
+        }
+
+        .menu-content {
+            padding: 20px;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .menu-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--light);
+        }
+
+        .menu-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--red);
+            text-shadow: 0 0 5px rgba(220, 38, 38, 0.5);
+        }
+
+        .menu-desc {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .menu-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: white;
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--yellow);
+            color: white;
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.5);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Music Section */
+        .music {
+            background: rgba(15, 23, 42, 0.9);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .music h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--green);
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+
+        .music-player {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(31, 41, 55, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .music-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--green);
+            border-radius: 25px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            background: rgba(15, 23, 42, 0.8);
+            color: white;
+        }
+
+        .play-btn {
+            background: var(--green);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.5);
+        }
+
+        .play-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.7);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.95);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .social-icons a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .hero-image {
+                width: 90%;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background-color: rgba(31, 41, 55, 0.95);
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            border: 2px solid var(--yellow);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .close {
+            color: #cbd5e1;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: white;
+        }
+
+        .price-input {
+            width: 100px;
+            padding: 10px;
+            border: 2px solid var(--yellow);
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: rgba(15, 23, 42, 0.8);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">SUMAK</div>
+                <div class="social-icons">
+                    <a href="https://wa.me/5492617526242" class="whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61576603961881" class="facebook" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <img src="https://i.imgur.com/hmMHpew.jpg" alt="SUMAK - Hermoso Agradable y Delicioso" class="hero-image" onerror="this.src='https://placehold.co/800x400/dc2626/f9fafb?text=SUMAK+-+Hermoso+Agradable+y+Delicioso'">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h2>Gastronomía Boliviana</h2>
+            <div class="about-text">
+                <p>En SUMAK, celebramos la rica tradición culinaria de Bolivia con auténticos sabores que conectan a las personas con la cultura andina. Nuestros platos están preparados con ingredientes frescos y seleccionados, siguiendo recetas tradicionales transmitidas de generación en generación. Cada bocado es una experiencia única que combina el sabor ancestral con la calidad moderna.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rating Section -->
+    <section class="rating">
+        <div class="container">
+            <div class="rating-content">
+                <h2>¡Califícanos!</h2>
+                <div class="stars" id="starRating">
+                    <i class="fas fa-star star" data-rating="1"></i>
+                    <i class="fas fa-star star" data-rating="2"></i>
+                    <i class="fas fa-star star" data-rating="3"></i>
+                    <i class="fas fa-star star" data-rating="4"></i>
+                    <i class="fas fa-star star" data-rating="5"></i>
+                </div>
+                <p>Ayúdanos a mejorar continuamente con tu opinión</p>
+                <a href="https://www.google.com/maps/place/SUMAK/@-32.8949517,-68.829301,19z/data=!3m1!4b1!4m16!1m9!3m8!1s0x967e09a1dd6eefdd:0x698ad41b5908215c!2sSUMAK!8m2!3d-32.8949528!4d-68.8286573!9m1!1b1!16s%2Fg%2F11xgssdlt9!3m5!1s0x967e09a1dd6eefdd:0x698ad41b5908215c!8m2!3d-32.8949528!4d-68.8286573!16s%2Fg%2F11xgssdlt9?entry=ttu&g_ep=EgoyMDI1MTEwOS4wIKXMDSoASAFQAw%3D%3D" class="rating-btn" target="_blank">
+                    Calificar en Google Maps
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu">
+        <div class="container">
+            <h2>Nuestro Menú</h2>
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section class="music">
+        <div class="container">
+            <h2>Elige tu Música</h2>
+            <div class="music-player">
+                <input type="text" class="music-input" placeholder="Pega el enlace de YouTube aquí" id="youtubeUrl">
+                <button class="play-btn" onclick="playMusic()">Reproducir</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 SUMAK Restaurante Boliviano. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal for price editing -->
+    <div id="priceModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Editar Precio</h3>
+            <input type="number" class="price-input" id="newPrice" placeholder="Nuevo precio">
+            <button class="btn btn-primary" onclick="updatePrice()" style="margin-top: 20px;">Actualizar</button>
+        </div>
+    </div>
+
+    <script>
+        // Menu data with WhatsApp links
+        const menuItems = [
+            {
+                name: "Sopa de Mani",
+                price: 15,
+                image: "https://comidasbolivianas.org/wp-content/uploads/2020/09/%F0%9F%87%A7%F0%9F%87%B4-Sopa-de-Mani-12-7-screenshot.png",
+                description: "Sopa tradicional boliviana hecha con maní, papas y verduras.",
+                whatsappLink: "https://wa.me/p/25005123959173299/5492617526242"
+            },
+            {
+                name: "Sopa de Trigo",
+                price: 12,
+                image: "https://imgur.com/P2j7zsP.jpg",
+                description: "Sopa nutritiva con trigo, carne y verduras frescas.",
+                whatsappLink: "https://wa.me/p/24938218685848355/5492617526242"
+            },
+            {
+                name: "Sopa de Pata",
+                price: 18,
+                image: "https://imgur.com/OTcMOHx.jpg",
+                description: "Sopa contundente con pata de res, papas y maíz.",
+                whatsappLink: "https://wa.me/p/24938218685848355/5492617526242"
+            },
+            {
+                name: "Sopa Puchero",
+                price: 16,
+                image: "https://imgur.com/BTKwPPZ.jpg",
+                description: "Sopa tradicional con carne, verduras y fideos.",
+                whatsappLink: "https://wa.me/p/24739595605724252/5492617526242"
+            },
+            {
+                name: "Picante de Pollo",
+                price: 25,
+                image: "https://i.ytimg.com/vi/M2DMXxjrAEM/maxresdefault.jpg",
+                description: "Pollo en salsa picante con papas y arroz.",
+                whatsappLink: "https://wa.me/p/24938218685848355/5492617526242"
+            },
+            {
+                name: "Aji de Lengua",
+                price: 30,
+                image: "https://recetasbolivia.com/wp-content/uploads/Picante-de-Lengua-Boliviana.webp",
+                description: "Lengua de res en salsa de ají con papas y arroz.",
+                whatsappLink: "https://wa.me/p/24938218685848355/5492617526242"
+            },
+            {
+                name: "Carne a la Olla",
+                price: 28,
+                image: "https://tse4.mm.bing.net/th/id/OIP.c-FSfaI6GyFxvm1y9DNWTAHaFS?pid=Api&P=0&h=180",
+                description: "Carne de res cocida con verduras y papas.",
+                whatsappLink: "https://wa.me/p/25532099679708539/5492617526242"
+            },
+            {
+                name: "Falso Conejo",
+                price: 22,
+                image: "https://imgur.com/Ompc66w.jpg",
+                description: "Plato tradicional con carne de cerdo en salsa especial.",
+                whatsappLink: "https://wa.me/p/25532099679708539/5492617526242"
+            },
+            {
+                name: "Sil Pancho",
+                price: 20,
+                image: "https://imgur.com/zjPVtZe.jpg",
+                description: "Pancho boliviano con salchicha, papas y salsa.",
+                whatsappLink: "https://wa.me/p/25264074013230866/5492617526242"
+            },
+            {
+                name: "Milanesa",
+                price: 24,
+                image: "https://img.freepik.com/fotos-premium/plato-combo-colombiano-chuleta-valluna-milanesa-ternera-papas-fritas-arroz-blanco-cocido-ensalada-tomate-lechuga_449839-19496.jpg",
+                description: "Milanesa de carne con papas fritas y ensalada.",
+                whatsappLink: "https://wa.me/p/24088516720779776/5492617526242"
+            },
+            {
+                name: "Napolitana",
+                price: 26,
+                image: "https://img.freepik.com/fotos-premium/plato-combo-colombiano-chuleta-valluna-milanesa-ternera-papas-fritas-arroz-blanco-cocido-ensalada-tomate-lechuga_449839-19496.jpg",
+                description: "Milanesa con salsa de tomate, jamón y queso.",
+                whatsappLink: "https://wa.me/p/24088516720779776/5492617526242"
+            },
+            {
+                name: "Costeleta",
+                price: 27,
+                image: "https://tse4.mm.bing.net/th/id/OIP.XMkcMHKSqXt-1iBojYzF0wAAAA?pid=Api&P=0&h=180",
+                description: "Costeleta de cerdo con papas y ensalada.",
+                whatsappLink: "https://wa.me/p/25620185937599275/5492617526242"
+            },
+            {
+                name: "Chicharrón",
+                price: 23,
+                image: "https://imgur.com/cX4SPII.jpg",
+                description: "Chicharrón crujiente con mote y sopa de maní.",
+                whatsappLink: "https://wa.me/p/25620185937599275/5492617526242"
+            },
+            {
+                name: "Pescado Sábalo Frito",
+                price: 32,
+                image: "https://imgur.com/Dqc1rK6.jpg",
+                description: "Pescado sábalo frito con yuca y ensalada.",
+                whatsappLink: "https://wa.me/p/25620185937599275/5492617526242"
+            },
+            {
+                name: "Empanadas Fritas o al Horno",
+                price: 8,
+                image: "https://imgur.com/iSj4WGL.jpg",
+                description: "Empanadas rellenas de carne o queso (unidad).",
+                whatsappLink: "https://wa.me/p/25066116826402222/5492617526242"
+            },
+            {
+                name: "Empanadas Salteñas",
+                price: 9,
+                image: "https://imgur.com/0BKyeBl.jpg",
+                description: "Empanadas salteñas con carne y verduras (unidad).",
+                whatsappLink: "https://wa.me/p/32146493081665375/5492617526242"
+            },
+            {
+                name: "Porción de Papas Fritas",
+                price: 10,
+                image: "https://tse2.mm.bing.net/th/id/OIP.weVnIzzCXpCsXnofqh7-PQHaEF?pid=Api&P=0&h=180",
+                description: "Porción generosa de papas fritas crujientes.",
+                whatsappLink: "https://wa.me/p/24983416251351779/5492617526242"
+            },
+            {
+                name: "Porción de Salchipapas",
+                price: 15,
+                image: "https://tse2.mm.bing.net/th/id/OIP.JW-GcPcRFP9gjE60CP0Y3QHaEK?pid=Api&P=0&h=180",
+                description: "Salchichas con papas fritas y salsa especial.",
+                whatsappLink: "https://wa.me/p/24774109948878372/5492617526242"
+            },
+            {
+                name: "Lengua a la Vinagreta",
+                price: 28,
+                image: "https://scontent.fmdz7-1.fna.fbcdn.net/v/t39.84726-6/569304514_837933848811135_2744866839110216712_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=101&ccb=1-7&_nc_sid=92e707&_nc_eui2=AeEsNsyA-4lnz0AAwPsU6ZwsR0JQbkca75xHQlBuRxrvnCGzVg-qZpbJBRQYdLJ3Ygvit4Udh6ACZ8iTUUjIoKEf&_nc_ohc=NRcOj33nWmkQ7kNvwEvcdOx&_nc_oc=AdlRcuxcuwQ_DzPBaMfjSOk1EWKPwZo72LKZpZs2fHVFPWVnnvKHvWwqy-ogPnetefkrMUGSA0e0TBJ2QPndWDZL&_nc_zt=14&_nc_ht=scontent.fmdz7-1.fna&_nc_gid=iSJiWR9vRhEwxE0bgyuTWg&oh=00_Afh5I8-9ih5IxVCSX_Cw3ntOYnTrMdnftewBjhh2F0w9Rg&oe=69151ABC",
+                description: "Lengua cocida con vinagreta especial y papas.",
+                whatsappLink: "https://wa.me/p/25452272261047611/5492617526242"
+            }
+        ];
+
+        // Current item being edited
+        let currentItem = null;
+
+        // Generate menu items
+        function generateMenu() {
+            const menuGrid = document.getElementById('menuGrid');
+            menuGrid.innerHTML = '';
+
+            menuItems.forEach((item, index) => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                
+                // Check if item has a WhatsApp link
+                const hasWhatsAppLink = item.whatsappLink && item.whatsappLink !== "";
+                const orderButton = hasWhatsAppLink ? 
+                    `<a href="${item.whatsappLink}" class="btn btn-primary" target="_blank">Pedir</a>` :
+                    `<button class="btn btn-primary" onclick="openPaymentLink()">Pedir</button>`;
+                
+                menuItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="menu-img" onerror="this.src='https://placehold.co/300x200/1f2937/cbd5e1?text=Imagen+no+disponible'">
+                    <div class="menu-content">
+                        <div class="menu-header">
+                            <h3 class="menu-name">${item.name}</h3>
+                            <div class="menu-price">$${item.price}</div>
+                        </div>
+                        <p class="menu-desc">${item.description}</p>
+                        <div class="menu-actions">
+                            ${orderButton}
+                            <button class="btn btn-secondary" onclick="editPrice(${index})">Editar Precio</button>
+                        </div>
+                    </div>
+                `;
+                menuGrid.appendChild(menuItem);
+            });
+        }
+
+        // Edit price function
+        function editPrice(index) {
+            currentItem = index;
+            document.getElementById('newPrice').value = menuItems[index].price;
+            document.getElementById('priceModal').style.display = 'block';
+        }
+
+        // Update price function
+        function updatePrice() {
+            if (currentItem !== null) {
+                const newPrice = document.getElementById('newPrice').value;
+                if (newPrice && !isNaN(newPrice) && newPrice > 0) {
+                    menuItems[currentItem].price = parseFloat(newPrice);
+                    generateMenu();
+                    document.getElementById('priceModal').style.display = 'none';
+                } else {
+                    alert('Por favor ingrese un precio válido');
+                }
+            }
+        }
+
+        // Open payment link
+        function openPaymentLink() {
+            alert('Enlace de pago no disponible en esta demo. En un entorno real, esto abriría la pasarela de pago.');
+        }
+
+        // Play music function
+        function playMusic() {
+            const url = document.getElementById('youtubeUrl').value;
+            if (url) {
+                alert('Reproduciendo música desde: ' + url + '\n(En una implementación real, esto reproduciría el video de YouTube)');
+            } else {
+                alert('Por favor ingrese un enlace de YouTube válido');
+            }
+        }
+
+        // Close modal
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('priceModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('priceModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Star rating functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.star');
+            let currentRating = 0;
+
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    currentRating = rating;
+                    updateStars();
+                    
+                    // Redirect to Google Maps when a star is clicked
+                    window.open('https://www.google.com/maps/place/SUMAK/@-32.8949517,-68.829301,19z/data=!3m1!4b1!4m18!1m9!3m8!1s0x967e09a1dd6eefdd:0x698ad41b5908215c!2sSUMAK!8m2!3d-32.8949528!4d-68.8286573!9m1!1b1!16s%2Fg%2F11xgssdlt9!3m7!1s0x967e09a1dd6eefdd:0x698ad41b5908215c!8m2!3d-32.8949528!4d-68.8286573!9m1!1b1!16s%2Fg%2F11xgssdlt9?entry=ttu&g_ep=EgoyMDI1MTEwOS4wIKXMDSoASAFQAw%3D%3D', '_blank');
+                });
+
+                star.addEventListener('mouseenter', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    highlightStars(rating);
+                });
+
+                star.addEventListener('mouseleave', function() {
+                    updateStars();
+                });
+            });
+
+            function highlightStars(rating) {
+                stars.forEach((star, index) => {
+                    if (index < rating) {
+                        star.classList.add('active');
+                    } else {
+                        star.classList.remove('active');
+                    }
+                });
+            }
+
+            function updateStars() {
+                stars.forEach((star, index) => {
+                    if (index < currentRating) {
+                        star.classList.add('active');
+                    } else {
+                        star.classList.remove('active');
+                    }
+                });
+            }
+
+            // Initialize menu
+            generateMenu();
+
+            // Add animation to social icons on load
+            const icons = document.querySelectorAll('.social-icons a');
+            icons.forEach((icon, index) => {
+                setTimeout(() => {
+                    icon.style.opacity = '0';
+                    icon.style.transform = 'translateY(20px)';
+                    icon.style.transition = 'all 0.5s ease';
+                    
+                    setTimeout(() => {
+                        icon.style.opacity = '1';
+                        icon.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>
